@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import sys, getopt, requests
+import sys, getopt
 import workerpool
 import urllib3, json
 import time
@@ -122,6 +122,11 @@ def main():
 
 		if URL is None:
 			help("Error: method [-u] is required\n")
+		else:
+			try:
+				urllib3.PoolManager().request(METHOD, URL)
+			except Exception as e:
+				help(f"Error: {str(e)}")
 
 		if 'QQQ' in ( str(URL) + str(HEADER) + str(DATA) ):
 			banner(URL, METHOD, WORDLIST, THREADS, SLEEP, PAYLOAD, HEADER, DATA, MATCH_CODE)

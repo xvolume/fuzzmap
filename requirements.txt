@@ -1,0 +1,2 @@
+urllib3==1.25.9
+workerpool==0.9.4
