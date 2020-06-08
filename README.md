@@ -17,7 +17,7 @@
       |  -h  --help     |  Show this help message              |
       |_________________|______________________________________|
     
-ex.
-    qzz -u https://example.com/?id=QQQ
-    qzz -u https://example.com/?id=12QQQ -w wordlist.txt -p 'javascript:alert()'
+ex.<br>
+    qzz -u https://example.com/?id=QQQ<br>
+    qzz -u https://example.com/?id=12QQQ -w wordlist.txt -p 'javascript:alert()'<br>
     qzz -u https://example.com -m POST -H '{"Content-type": "text/html"}' -d 'user=adminQQQ'
