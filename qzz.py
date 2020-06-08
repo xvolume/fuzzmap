@@ -6,7 +6,7 @@ import time
 import os.path
 
 
-WORDLIST = 'quotlist.txt'
+WORDLIST = 'wordlists/dirs_common.txt'
 THREADS = 40
 SLEEP = None
 METHOD = 'GET'
