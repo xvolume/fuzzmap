@@ -18,14 +18,14 @@
       |_________________|______________________________________|
     
     
-<h3>Intallation</h3><br>
-git clone https://github.com/xvolume/qzz.git<br>
-<h5>In qzz dir</h5><br>
-python3 -m pip install -r requirements.txt<br>
-sudo chmod +x qzz<br>
-sudo ln -s /path/to/qzz/qzz /usr/local/bin/qzz<br>
+<h3>Intallation</h3>
+<code>git clone https://github.com/xvolume/qzz.git</code>
+<h5>In qzz dir</h5>
+<code>python3 -m pip install -r requirements.txt</code>
+<code>sudo chmod +x qzz</code>
+<code>sudo ln -s /path/to/qzz/qzz /usr/local/bin/qzz</code>
 <br><br>
 <h3>Example</h3><br>
-    qzz -u https://example.com/QQQ<br>
-    qzz -u https://example.com/?id=12QQQ -w wordlist.txt -p 'javascript:alert()'<br>
-    qzz -u https://example.com -m POST -H '{"Content-type": "text/html"}' -d 'user=adminQQQ'<br>
+    <code>qzz -u https://example.com/QQQ</code>
+    <code>qzz -u https://example.com/?id=12QQQ -w wordlist.txt -p 'javascript:alert()'</code>
+    <code>qzz -u https://example.com -m POST -H '{"Content-type": "text/html"}' -d 'user=adminQQQ'</code>
