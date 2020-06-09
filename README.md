@@ -29,3 +29,5 @@
     <code>qzz -u https://example.com/QQQ</code><br>
     <code>qzz -u https://example.com/?id=12QQQ -w wordlist.txt -p 'javascript:alert()'</code><br>
     <code>qzz -u https://example.com -m POST -H '{"Content-type": "text/html"}' -d 'user=adminQQQ'</code>
+<br>
+[![asciicast](https://asciinema.org/a/337647.svg)](https://asciinema.org/a/337647)
