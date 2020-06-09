@@ -1,5 +1,5 @@
 
-                             Light fuzzer
+                             <b>Light fuzzer</b>
        ________________________________________________________
       |                 |                                      |
       |  -u* --url      |  Target URL (required)               |
@@ -18,14 +18,14 @@
       |_________________|______________________________________|
     
     
-##Intallation<br>
-'''git clone https://github.com/xvolume/qzz.git'''
-In qzz dir
-'''python3 -m pip install -r requirements.txt'''
-'''sudo chmod +x qzz'''
-'''sudo ln -s /path/to/qzz/qzz /usr/local/bin/qzz'''
-<br>
-##Example<br>
-    '''qzz -u https://example.com/QQQ'''<br>
+<h3>Intallation</h3><br>
+git clone https://github.com/xvolume/qzz.git<br>
+<h5>In qzz dir</h5><br>
+python3 -m pip install -r requirements.txt<br>
+sudo chmod +x qzz<br>
+sudo ln -s /path/to/qzz/qzz /usr/local/bin/qzz<br>
+<br><br>
+<h3>Example</h3><br>
+    qzz -u https://example.com/QQQ<br>
     qzz -u https://example.com/?id=12QQQ -w wordlist.txt -p 'javascript:alert()'<br>
     qzz -u https://example.com -m POST -H '{"Content-type": "text/html"}' -d 'user=adminQQQ'<br>
