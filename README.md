@@ -1,5 +1,5 @@
 
-                             <b>Light fuzzer</b>
+                             Light fuzzer
        ________________________________________________________
       |                 |                                      |
       |  -u* --url      |  Target URL (required)               |
