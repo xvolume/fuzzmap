@@ -18,7 +18,14 @@
       |_________________|______________________________________|
     
     
-ex.<br>
-    qzz -u https://example.com/QQQ<br>
+##Intallation<br>
+'''git clone https://github.com/xvolume/qzz.git'''
+In qzz dir
+'''python3 -m pip install -r requirements.txt'''
+'''sudo chmod +x qzz'''
+'''sudo ln -s /path/to/qzz/qzz /usr/local/bin/qzz'''
+<br>
+##Example<br>
+    '''qzz -u https://example.com/QQQ'''<br>
     qzz -u https://example.com/?id=12QQQ -w wordlist.txt -p 'javascript:alert()'<br>
     qzz -u https://example.com -m POST -H '{"Content-type": "text/html"}' -d 'user=adminQQQ'<br>
