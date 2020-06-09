@@ -15,9 +15,10 @@ DATA = None
 #REQUEST = None
 PAYLOAD = ''
 URL = None
-MATCH_CODE = None
 QQQ = None
 OUTFILE = None
+MATCH_CODE = [200,204,301,302,307]
+COUNTER = 0
 
 allowed_methods = [
 	'OPTIONS',
@@ -126,7 +127,7 @@ def main():
 			try:
 				urllib3.PoolManager().request(METHOD, URL)
 			except Exception as e:
-				help(f"Error: {str(e)}")
+				help(f"Error: {URL} connection failed\n")
 
 		if 'QQQ' in ( str(URL) + str(HEADER) + str(DATA) ):
 			banner(URL, METHOD, WORDLIST, THREADS, SLEEP, PAYLOAD, HEADER, DATA, MATCH_CODE)
@@ -154,16 +155,18 @@ def main():
 
 
 def printer(url, r):
-	if MATCH_CODE and r.status in MATCH_CODE:
-		print(f'\r{url:35}{str(r.status):15}{str(time.time()-start_time)}', end='\n')
+	progress = str(COUNTER)+'/'+str(len(QQQ))
+	if r.status in MATCH_CODE:
+		print(f'\r {url:41} |{str(r.status):^7}| {str(time.time()-start_time)}', end='\n')
 	else:
-		print(f'\r{url:35}{str(r.status):15}{str(time.time()-start_time)}', end='')
+		print(f'\r {url.split("/")[3]:29} {progress:12}|{str(r.status):^7}| {str(time.time()-start_time)}', end='')
 
 
 http = urllib3.PoolManager(maxsize = int(THREADS*0.6))
 start_time = time.time()
 
 def send_request(url, header, data):
+	global COUNTER
 	if SLEEP:
 		time.sleep(SLEEP)
 
@@ -174,6 +177,7 @@ def send_request(url, header, data):
 		body = data,
 		timeout = 10)
 
+	COUNTER += 1
 	printer(url, r)
 
 
@@ -222,6 +226,9 @@ def banner(u, m, w, t, s, p, H, d, mc):
 	print(f"    |  DATA        ::  {d:36}|")if d else None
 	print(f"    |  MATCH CODE  ::  {str(mc):36}|")if mc else None
 	print("    |______________________________________________________|\n\n")
+	print(f" {'URL':^41}  {'STATUS':^7}    TIME")
+	print(" _______________________________________________________________________")
+	print(f"{' ':43}|{' ':^7}|")
 
 
 def help(msg = None):
@@ -230,25 +237,25 @@ def help(msg = None):
 		print(msg)
 	else:
 		print ("""
-                           Light fuzzer
-     ________________________________________________________
-    |                 |                                      |
-    |  -u* --url      |  Target URL (required)               |
-    |  -w  --wordlist |  Wordlist (def. dirs_common.txt)     |
-    |                 |                                      |
-    |  -t  --threads  |  Number of threads (def. 40)         |
-    |  -s  --delay    |  Delay between requests (ex. 0.1)    |
-    |                 |                                      |
-    |  -p  --payload  |  Payload string (goes after QQQ)     |
-    |  -H  --headers  |  Set request header (JSON format)    |
-    |  -d  --data     |  Set request data                    |
-    |  -m  --method   |  Set request method (def. GET)       |
-    |  --match-code   |  Match status code (def. Disabled)   |
-    |                 |                                      |
+                          Light fuzzer
+     ______________________________________________________
+    |                 |                                    |
+    |  -u* --url      |  Target URL (required)             |
+    |  -w  --wordlist |  Wordlist (def. dirs_common.txt)   |
+    |                 |                                    |
+    |  -t  --threads  |  Number of threads (def. 40)       |
+    |  -s  --delay    |  Delay between requests (ex. 0.1)  |
+    |                 |                                    |
+    |  -p  --payload  |  Payload string (goes after QQQ)   |
+    |  -H  --headers  |  Set request header (JSON format)  |
+    |  -d  --data     |  Set request data                  |
+    |  -m  --method   |  Set request method (def. GET)     |
+    |  --match-code   |  Match status code                 |
+    |                 |                                    |
 """
-#+"""    |  -o  --output   |  Write output to file                |"""
-+"""    |  -h  --help     |  Show this help message              |
-    |_________________|______________________________________|
+#+"""    |  -o  --output   |  Write output to file              |"""
++"""    |  -h  --help     |  Show this help message            |
+    |_________________|____________________________________|
 """)
 	print("""ex.
    qzz -u https://example.com/QQQ
