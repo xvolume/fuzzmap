@@ -18,6 +18,6 @@
       |_________________|______________________________________|
     
 ex.<br>
-    qzz -u https://example.com/?id=QQQ<br>
+    qzz -u https://example.com/QQQ<br>
     qzz -u https://example.com/?id=12QQQ -w wordlist.txt -p 'javascript:alert()'<br>
-    qzz -u https://example.com -m POST -H '{"Content-type": "text/html"}' -d 'user=adminQQQ'
+    qzz -u https://example.com -m POST -H '{"Content-type": "text/html"}' -d 'user=adminQQQ'<br>
