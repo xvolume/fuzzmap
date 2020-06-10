@@ -12,7 +12,9 @@
       |  -H  --headers  |  Set request header (JSON format)    |
       |  -d  --data     |  Set request data                    |
       |  -m  --method   |  Set request method (def. GET)       |
-      |  --match-code   |  Match status code (def. Disabled)   |
+      |                 |                                      |
+      |  --match-code   |  Match status code                   |
+      |  --ignore-code  |  Ignore status code                  |
       |                 |                                      |
       |  -h  --help     |  Show this help message              |
       |_________________|______________________________________|
@@ -20,14 +22,15 @@
     
 <h3>Intallation</h3>
 <code>git clone https://github.com/xvolume/qzz.git</code>
-<h5>In qzz dir</h5>
+In qzz dir
 <code>python3 -m pip install -r requirements.txt</code><br>
-<code>sudo chmod +x qzz</code><br>
-<code>sudo ln -s /path/to/qzz/qzz /usr/local/bin/qzz</code><br>
+<code>sudo chmod +x qzz.py</code><br>
+<code>sudo ln -s /path/to/qzz/qzz.py /usr/local/bin/qzz</code><br>
 <br><br>
-<h3>Example</h3>
+<h3>Examples</h3>
     <code>qzz -u https://example.com/QQQ</code><br>
+    <code>qzz -u https://QQQ.example.com -w subdomains.txt</code><br>
     <code>qzz -u https://example.com/?id=12QQQ -w wordlist.txt -p 'javascript:alert()'</code><br>
-    <code>qzz -u https://example.com -m POST -H '{"Content-type": "text/html"}' -d 'user=adminQQQ'</code>
-<br>
+    <code>qzz -u https://example.com -m POST -H '{"Content-type": "text/html"}' -d 'user=adminQQQ'</code><br>
+<h5>Search files and directories</h5>
 <a href="https://asciinema.org/a/337647" target="_blank"><img src="https://asciinema.org/a/337647.svg" /></a>

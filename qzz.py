@@ -18,7 +18,9 @@ URL = None
 QQQ = None
 OUTFILE = None
 MATCH_CODE = [200,204,301,302,307]
+IGNORE_CODE = None
 COUNTER = 0
+ERRORS_COUNTER = 0
 
 allowed_methods = [
 	'OPTIONS',
@@ -64,6 +66,7 @@ def main():
 	global PAYLOAD
 	global URL
 	global MATCH_CODE
+	global IGNORE_CODE
 	global QQQ
 	global OUTFILE
 
@@ -81,7 +84,8 @@ def main():
 			"data=",
 			"method=",
 			"output=",
-			"match-code="])
+			"match-code=",
+			"ignore-code="])
 
 		for opt, arg in opts:
 			arg = arg.strip()
@@ -111,6 +115,8 @@ def main():
 					help(f"Error: method {arg.strip()} not allowed\n")
 			elif opt == "--match-code":
 				MATCH_CODE = [int(i.strip()) for i in arg.split(',')]
+			elif opt == "--ignore-code":
+				IGNORE_CODE = [int(i.strip()) for i in arg.split(',')]
 			elif opt in ("-o", "--output"):
 				OUTFILE = arg
 #			elif opt == "-r":
@@ -121,16 +127,17 @@ def main():
 			else:
 				help(f"Error: [{opt}] unhandled option\n")
 
-		if URL is None:
-			help("Error: method [-u] is required\n")
-		else:
-			try:
-				urllib3.PoolManager().request(METHOD, URL)
-			except Exception as e:
-				help(f"Error: {URL} connection failed\n")
+# Impossible to bruteforce subdomains with this chech
+#		if URL is None:
+#			help("Error: method [-u] is required\n")
+#		else:
+#			try:
+#				urllib3.PoolManager().request(METHOD, URL.replace('QQQ', ''))
+#			except Exception as e:
+#				help(f"Error: {URL} connection failed\n")
 
 		if 'QQQ' in ( str(URL) + str(HEADER) + str(DATA) ):
-			banner(URL, METHOD, WORDLIST, THREADS, SLEEP, PAYLOAD, HEADER, DATA, MATCH_CODE)
+			banner(URL, METHOD, WORDLIST, THREADS, SLEEP, PAYLOAD, HEADER, DATA, MATCH_CODE, IGNORE_CODE)
 			QQQ = [i.strip('\n') for i in open(WORDLIST).readlines()]
 
 			url, header, data = prepare_requests(
@@ -154,12 +161,22 @@ def main():
 
 
 
-def printer(url, r):
+def printer(url, status=None, len_data=None):
 	progress = str(COUNTER)+'/'+str(len(QQQ))
-	if r.status in MATCH_CODE:
-		print(f'\r {url:41} |{str(r.status):^7}| {str(time.time()-start_time)}', end='\n')
+	url = url.split("//")[1]
+	t = time.strftime('%H:%M:%S', time.gmtime(time.time()-start_time))
+
+	if IGNORE_CODE and status not in IGNORE_CODE:
+		print(f'\r {url:48}|{str(status):^5}'+
+                        f'|{str(len_data):^8}| {t:25}', end='\n')
+	elif status in MATCH_CODE and IGNORE_CODE is None:
+		print(f'\r {url:48}|{str(status):^5}'+
+			f'|{str(len_data):^8}| {t:25}', end='\n')
 	else:
-		print(f'\r {url.split("/")[3]:29} {progress:12}|{str(r.status):^7}| {str(time.time()-start_time)}', end='')
+		print(f'\r {url[:33]:34}{progress:^14}'+
+			f'|{str(status):^5}|{str(len_data):^8}'+
+			f'|{t:^10} '+
+			f' {"Err: "+str(ERRORS_COUNTER)}', end='')
 
 
 http = urllib3.PoolManager(maxsize = int(THREADS*0.6))
@@ -167,18 +184,23 @@ start_time = time.time()
 
 def send_request(url, header, data):
 	global COUNTER
+	global ERRORS_COUNTER
+	COUNTER += 1
+
 	if SLEEP:
 		time.sleep(SLEEP)
 
-	r = http.request(
-		METHOD,
-		url,
-		headers = header,
-		body = data,
-		timeout = 10)
-
-	COUNTER += 1
-	printer(url, r)
+	try:
+		r = http.request(
+			METHOD,
+			url,
+			headers = header,
+			body = data,
+			timeout = 10)
+		printer(url, r.status, len(r.data))
+	except:
+		printer(url)
+		ERRORS_COUNTER += 1
 
 
 def prepare_requests(url, qqq, header=None, data=None):
@@ -211,7 +233,7 @@ def prepare_requests(url, qqq, header=None, data=None):
 	return u, h, d
 
 
-def banner(u, m, w, t, s, p, H, d, mc):
+def banner(u, m, w, t, s, p, H, d, mc, ic):
 	print(f"""
                            Loaded up
      ______________________________________________________
@@ -224,11 +246,12 @@ def banner(u, m, w, t, s, p, H, d, mc):
 	print(f"    |  PAYLOAD     ::  {p:36}|")if p else None
 	print(f"    |  HEADER      ::  {H:36}|")if H else None
 	print(f"    |  DATA        ::  {d:36}|")if d else None
-	print(f"    |  MATCH CODE  ::  {str(mc):36}|")if mc else None
+	print(f"    |  MATCH CODE  ::  {str(mc):36}|")if mc and not ic else None
+	print(f"    |  IGNORE CODE ::  {str(ic):36}|")if ic else None
 	print("    |______________________________________________________|\n\n")
-	print(f" {'URL':^41}  {'STATUS':^7}    TIME")
-	print(" _______________________________________________________________________")
-	print(f"{' ':43}|{' ':^7}|")
+	print(f" {'URL':^48}{'STATUS':^6}{'LENGTH':^10} {'TIME':^8}")
+	print(" __________________________________________________________________________")
+	print(f"{' ':49}|{' ':^5}|{' ':^8}|")
 
 
 def help(msg = None):
@@ -250,7 +273,9 @@ def help(msg = None):
     |  -H  --headers  |  Set request header (JSON format)  |
     |  -d  --data     |  Set request data                  |
     |  -m  --method   |  Set request method (def. GET)     |
+    |                 |                                    |
     |  --match-code   |  Match status code                 |
+    |  --ignore-code  |  Ignore status code                |
     |                 |                                    |
 """
 #+"""    |  -o  --output   |  Write output to file              |"""
@@ -259,6 +284,7 @@ def help(msg = None):
 """)
 	print("""ex.
    qzz -u https://example.com/QQQ
+   qzz -u https://QQQ.example.com/ -w subdomains.txt
    qzz -u https://example.com/?id=12QQQ -w wordlist.txt -p 'javascript:alert()'
    qzz -u https://example.com -m POST -H '{"Content-type": "text/html"}' -d 'user=adminQQQ'""")
 
