@@ -22,9 +22,9 @@
 
 <h3>Intallation</h3>
 $<code>git clone https://github.com/xvolume/qzz.git</code><br>
-<code>/qzz$  python3 -m pip install -r requirements.txt</code><br>
-<code>/qzz$  sudo chmod +x qzz.py</code><br>
-<code>/qzz$  sudo ln -s /path/to/qzz/qzz.py /usr/local/bin/qzz</code><br>
+/qzz$<code>python3 -m pip install -r requirements.txt</code><br>
+/qzz$<code>sudo chmod +x qzz.py</code><br>
+/qzz$<code>sudo ln -s /path/to/qzz/qzz.py /usr/local/bin/qzz</code><br>
 <br>
 <h3>Examples</h3>
     <code>qzz -u https://example.com/QQQ</code><br>
