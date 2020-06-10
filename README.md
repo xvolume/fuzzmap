@@ -22,7 +22,7 @@
 
 <h3>Intallation</h3>
 <code>git clone https://github.com/xvolume/qzz.git</code><br>
-~/qzz<br>
+~/qzz/<br>
 <code>python3 -m pip install -r requirements.txt</code><br>
 <code>sudo chmod +x qzz.py</code><br>
 <code>sudo ln -s /path/to/qzz/qzz.py /usr/local/bin/qzz</code><br>
