@@ -9,7 +9,7 @@
     <code>qzz -u https://example.com/?id=12QQQ -w wordlist.txt -p 'javascript:alert()'</code><br>
     <code>qzz -u https://example.com -m POST -H '{"Content-type": "text/html"}' -d 'user=adminQQQ'</code><br>
 <h5>Search files and directories</h5>
-<a href="https://asciinema.org/a/337647" target="_blank"><img src="https://asciinema.org/a/337647.svg" /></a>
+<a href="https://asciinema.org/a/339470" target="_blank"><img src="https://asciinema.org/a/339470.svg" /></a>
 <br>
 <h3>Help</h3>
 
