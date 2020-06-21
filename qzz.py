@@ -196,11 +196,11 @@ def printer(url, r=None):
 		if len_check(len_data):
 			print(f'\r {url:48}|{str(status):^5}'+
 				f'|{str(len_data):^8}| {t:25}', end='\n')
-	else:
-		print(f'\r {url[:33]:34}{progress:^14}'+
-			f'|{str(status):^5}|{str(len_data):^8}'+
-			f'|{t:^10} '+
-			f' {"Err: "+str(ERRORS_COUNTER)}', end='')
+
+	print(f'\r {url[:33]:34}{progress:^14}'+
+		f'|{str(status):^5}|{str(len_data):^8}'+
+		f'|{t:^10} '+
+		f' {"Err: "+str(ERRORS_COUNTER)}', end='')
 
 
 def len_check(len):
