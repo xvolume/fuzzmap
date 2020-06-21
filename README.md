@@ -1,11 +1,9 @@
 <h3>Installation</h3>
-<code>
-git clone https://github.com/xvolume/qzz.git<br>
-cd qzz/<br>
-chmod +x qzz.py<br>
-pip install -r requirements.txt<br>
-ln -s /path/to/qzz/qzz.py /usr/local/bin/qzz
-</code><br>
+<code>git clone https://github.com/xvolume/qzz.git</code><br>
+<code>cd qzz/</code><br>
+<code>chmod +x qzz.py</code><br>
+<code>pip install -r requirements.txt</code><br>
+<code>ln -s /path/to/qzz/qzz.py /usr/local/bin/qzz</code><br>
 <br>
 <h3>Usage</h3>
     <code>qzz -u https://example.com/QQQ -w dirs.txt</code><br>
