@@ -39,7 +39,6 @@
           |                   |                                    |
           |  -h   --help      |  Show this help message            |
           |___________________|____________________________________|
-<br>
 <h3>TODO</h3>
 <ul>
     <li>  Base64 support</li>
@@ -47,6 +46,6 @@
     <li>? Payload list support</li>
     <li>  Raw request support (ex. from Burp)</li>
     <li>  Crawler</li>
-    <li>  Smart fuzz</li>
+    <li>  Smart fuzz (based on response size)</li>
     <li>? Bruteforce by request method</li>
 </ul>
