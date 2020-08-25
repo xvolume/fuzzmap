@@ -384,7 +384,7 @@ def printer(url, fuzz, r=None):
 		if len_check( MATCH_LEN, IGNORE_LEN, len_data ) and\
 			len_check( MATCH_WORDS, IGNORE_WORDS, words_data ) and\
 			len_check( MATCH_LINES, IGNORE_LINES, lines_data ):
-			if status and len_data and words_data and lines_data:
+			if status and str( len_data ) and str( words_data ) and str( lines_data ):
 				if OUTFILE:
 					output( url, fuzz, redirect, status, len_data, words_data, lines_data, t )
 
@@ -399,7 +399,7 @@ def printer(url, fuzz, r=None):
 		if len_check( MATCH_LEN, IGNORE_LEN, len_data ) and\
 			len_check( MATCH_WORDS, IGNORE_WORDS, words_data ) and\
 			len_check( MATCH_LINES, IGNORE_LINES, lines_data ):
-			if status and len_data and words_data and lines_data:
+			if status and str( len_data ) and str( words_data ) and str( lines_data ):
 				if OUTFILE:
 					output( url, fuzz, redirect, status, len_data, words_data, lines_data, t )
 
@@ -413,7 +413,7 @@ def printer(url, fuzz, r=None):
 			if len_check( MATCH_LEN, IGNORE_LEN, len_data ) and\
 				len_check( MATCH_WORDS, IGNORE_WORDS, words_data ) and\
 				len_check( MATCH_LINES, IGNORE_LINES, lines_data ):
-				if status and len_data and words_data and lines_data:
+				if status and str( len_data ) and str( words_data ) and str( lines_data ):
 					if OUTFILE:
 						output( url, fuzz, redirect, status, len_data, words_data, lines_data, t )
 
