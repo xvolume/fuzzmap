@@ -384,11 +384,12 @@ def printer(url, fuzz, r=None):
 		if len_check( MATCH_LEN, IGNORE_LEN, len_data ) and\
 			len_check( MATCH_WORDS, IGNORE_WORDS, words_data ) and\
 			len_check( MATCH_LINES, IGNORE_LINES, lines_data ):
-			if OUTFILE and status and len_data and words_data and lines_data:
-				output( url, fuzz, redirect, status, len_data, words_data, lines_data, t )
+			if status and len_data and words_data and lines_data:
+				if OUTFILE:
+					output( url, fuzz, redirect, status, len_data, words_data, lines_data, t )
 
-			print( f'\r {fuzz:40}|{str(status):^5}'+
-				f'|{str(len_data):^8}|{str(words_data):^6}|{str(lines_data):^6}|{t:^10}|', end='\n' )
+				print( f'\r {fuzz:40}|{str(status):^5}'+
+					f'|{str(len_data):^8}|{str(words_data):^6}|{str(lines_data):^6}|{t:^10}|', end='\n' )
 
 
 	elif MATCH_CODE and str(MATCH_CODE) != 'all' and status in MATCH_CODE and IGNORE_CODE is None or\
@@ -398,11 +399,12 @@ def printer(url, fuzz, r=None):
 		if len_check( MATCH_LEN, IGNORE_LEN, len_data ) and\
 			len_check( MATCH_WORDS, IGNORE_WORDS, words_data ) and\
 			len_check( MATCH_LINES, IGNORE_LINES, lines_data ):
-			if OUTFILE and status and len_data and words_data and lines_data:
-				output( url, fuzz, redirect, status, len_data, words_data, lines_data, t )
+			if status and len_data and words_data and lines_data:
+				if OUTFILE:
+					output( url, fuzz, redirect, status, len_data, words_data, lines_data, t )
 
-			print( f'\r {fuzz:40}|{str(status):^5}'+
-				f'|{str(len_data):^8}|{str(words_data):^6}|{str(lines_data):^6}|{t:^10}|', end='\n' )
+				print( f'\r {fuzz:40}|{str(status):^5}'+
+					f'|{str(len_data):^8}|{str(words_data):^6}|{str(lines_data):^6}|{t:^10}|', end='\n' )
 
 
 	elif MATCH_CODE is None and IGNORE_CODE is None:
@@ -411,11 +413,12 @@ def printer(url, fuzz, r=None):
 			if len_check( MATCH_LEN, IGNORE_LEN, len_data ) and\
 				len_check( MATCH_WORDS, IGNORE_WORDS, words_data ) and\
 				len_check( MATCH_LINES, IGNORE_LINES, lines_data ):
-				if OUTFILE and status and len_data and words_data and lines_data:
-					output( url, fuzz, redirect, status, len_data, words_data, lines_data, t )
+				if status and len_data and words_data and lines_data:
+					if OUTFILE:
+						output( url, fuzz, redirect, status, len_data, words_data, lines_data, t )
 
-				print( f'\r {fuzz:40}|{str(status):^5}'+
-					f'|{str(len_data):^8}|{str(words_data):^6}|{str(lines_data):^6}|{t:^10}|', end='\n' )
+					print( f'\r {fuzz:40}|{str(status):^5}'+
+						f'|{str(len_data):^8}|{str(words_data):^6}|{str(lines_data):^6}|{t:^10}|', end='\n' )
 
 
 	print( f'\r {fuzz[:26]:26}{progress:^14}'+
@@ -583,7 +586,7 @@ def help(msg = None):
     |   -s   --delay      |  Delay between requests (ex. 0.1)  |
     |                     |                                    |
     |   -p   --payload    |  Payload string (goes after FUZZ)  |
-    |   -    --headers    |  Set request header (JSON format)  |
+    |   -H   --headers    |  Set request header (JSON format)  |
     |   -d   --data       |  Set request data                  |
     |   -m   --method     |  Set request method (def. GET)     |
     |                     |                                    |
